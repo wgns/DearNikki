@@ -76,6 +76,7 @@ public class ComposeActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         if (view.getId() == R.id.appCompatButtonSave) {
             postDataToSQLite();
+            finish();
 
             Intent intent = new Intent(ComposeActivity.this, EntriesListActivity.class);
             intent.putExtra("EMAIL", getIntent().getStringExtra("EMAIL"));
