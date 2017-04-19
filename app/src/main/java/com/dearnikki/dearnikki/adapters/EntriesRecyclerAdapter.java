@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.dearnikki.dearnikki.R;
 import com.dearnikki.dearnikki.activities.*;
@@ -62,12 +65,13 @@ public class EntriesRecyclerAdapter extends RecyclerView.Adapter<EntriesRecycler
             public boolean onLongClick(View v) {
                 CharSequence[] options = new CharSequence[] {"Edit", "Delete"};
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("Options");
+                //builder.setTitle("Options");
+                builder.setTitle(Html.fromHtml("<font color='#8AC7FF'>Options</font>"));
                 builder.setItems(options, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         switch (i) {
-                            case 0:     // Edit - HAHAHALOLS delete + add = update      :(
+                            case 0:     // Edit - minetey lungs
                                 if (listEntries.get(position).getEmail().equals(((Activity) context).getIntent().getStringExtra("EMAIL"))) {
                                     Intent intent = new Intent(context, ComposeActivity.class);
                                     intent.putExtra("ENTRY_ID", listEntries.get(position).getId());
@@ -92,23 +96,33 @@ public class EntriesRecyclerAdapter extends RecyclerView.Adapter<EntriesRecycler
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 databaseHelper.deleteEntry(listEntries.get(position));
-
                                                 Intent intent1 = new Intent(context, EntriesListActivity.class);
                                                 intent1.putExtra("EMAIL", ((Activity) context).getIntent().getStringExtra("EMAIL"));
-
-                                                ((Activity) context).finish();
                                                 context.startActivity(intent1);
                                             }
                                         })
-                                        .setNegativeButton("No", null)
-                                        .create()
-                                        .show();
+                                        .setNegativeButton("No", null);
+                                        //.create()
+                                        //.show();
+
+                                AlertDialog alert = builder1.create();
+                                alert.show();
+                                Button nbutton = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
+                                nbutton.setBackgroundColor(Color.rgb(38, 199, 255));
+                                Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+                                pbutton.setBackgroundColor(Color.rgb(38, 199, 255));
                         }
                     }
                 });
-                builder.setNegativeButton("Cancel", null)
-                        .create()
-                        .show();
+                builder.setNegativeButton("Cancel", null);
+
+                        //.create()
+                        //.show();
+                AlertDialog alert = builder.create();
+                alert.show();
+                Button nbutton = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
+                nbutton.setBackgroundColor((Color.rgb(38, 199, 255)));
+
 
                 return true;
             }
