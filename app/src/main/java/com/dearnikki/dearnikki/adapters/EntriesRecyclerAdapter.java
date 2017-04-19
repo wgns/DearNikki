@@ -73,8 +73,7 @@ public class EntriesRecyclerAdapter extends RecyclerView.Adapter<EntriesRecycler
                                     intent.putExtra("ENTRY_ID", listEntries.get(position).getId());
                                     intent.putExtra("TITLE", listEntries.get(position).getTitle());
                                     intent.putExtra("CONTENT", listEntries.get(position).getContent());
-                                    intent.putExtra("USER_EMAIL", listEntries.get(position).getEmail());
-                                    intent.putExtra("EMAIL", ((Activity) context).getIntent().getStringExtra("EMAIL"));
+                                    intent.putExtra("EMAIL", listEntries.get(position).getEmail());
 
                                     databaseHelper.deleteEntry(listEntries.get(position));
                                     context.startActivity(intent);
