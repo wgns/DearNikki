@@ -78,7 +78,7 @@ public class ComposeActivity extends AppCompatActivity implements View.OnClickLi
             postDataToSQLite();
             finish();
 
-            Intent intent = new Intent(ComposeActivity.this, EntriesListActivity.class);
+            Intent intent = new Intent(this, EntriesListActivity.class);
             intent.putExtra("EMAIL", getIntent().getStringExtra("EMAIL"));
 
             startActivity(intent);

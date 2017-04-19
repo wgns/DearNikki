@@ -43,27 +43,47 @@ public class EntriesRecyclerAdapter extends RecyclerView.Adapter<EntriesRecycler
     @Override
     public void onBindViewHolder(EntryViewHolder holder, final int position) {
         holder.textViewTitle.setText(listEntries.get(position).getTitle());
-        holder.textViewContent.setText(listEntries.get(position).getContent());
         holder.textViewDate.setText(listEntries.get(position).getDate());
         holder.textViewOwner.setText(listEntries.get(position).getEmail());
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage(listEntries.get(position).getTitle() + "\n\n" + listEntries.get(position).getContent())
+                        .setNegativeButton("Close", null)
+                        .create()
+                        .show();
+            }
+        });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
                 CharSequence[] options = new CharSequence[] {"Edit", "Delete"};
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Options");
                 builder.setItems(options, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         switch (i) {
                             case 0:     // Edit - minetey lungs
-                                Intent intent = new Intent(context, ComposeActivity.class);
-                                intent.putExtra("ENTRY_ID", listEntries.get(position).getId());
-                                intent.putExtra("TITLE", listEntries.get(position).getTitle());
-                                intent.putExtra("CONTENT", listEntries.get(position).getContent());
-                                intent.putExtra("USER_EMAIL", listEntries.get(position).getEmail());
-                                intent.putExtra("EMAIL", ((Activity) context).getIntent().getStringExtra("EMAIL"));
+                                if (listEntries.get(position).getEmail().equals(((Activity) context).getIntent().getStringExtra("EMAIL"))) {
+                                    Intent intent = new Intent(context, ComposeActivity.class);
+                                    intent.putExtra("ENTRY_ID", listEntries.get(position).getId());
+                                    intent.putExtra("TITLE", listEntries.get(position).getTitle());
+                                    intent.putExtra("CONTENT", listEntries.get(position).getContent());
+                                    intent.putExtra("USER_EMAIL", listEntries.get(position).getEmail());
+                                    intent.putExtra("EMAIL", ((Activity) context).getIntent().getStringExtra("EMAIL"));
 
-                                context.startActivity(intent);
+                                    context.startActivity(intent);
+                                } else {
+                                    AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+                                    builder1.setMessage("You can't edit this entry.")
+                                            .setNegativeButton("Okay", null)
+                                            .create()
+                                            .show();
+                                }
                                 break;
                             case 1:     // Delete - works fine
                                 databaseHelper.deleteEntry(listEntries.get(position));
@@ -76,27 +96,27 @@ public class EntriesRecyclerAdapter extends RecyclerView.Adapter<EntriesRecycler
                 builder.setNegativeButton("Cancel", null)
                         .create()
                         .show();
+
+                return true;
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        Log.v(EntriesRecyclerAdapter.class.getSimpleName(),""+listEntries.size());
+        Log.v(EntriesRecyclerAdapter.class.getSimpleName(),"" + listEntries.size());
         return listEntries.size();
     }
 
     public class EntryViewHolder extends RecyclerView.ViewHolder {
 
         public AppCompatTextView textViewTitle;
-        public AppCompatTextView textViewContent;
         public AppCompatTextView textViewDate;
         public AppCompatTextView textViewOwner;
 
         public EntryViewHolder(View view) {
             super(view);
             textViewTitle = (AppCompatTextView) view.findViewById(R.id.textViewTitle);
-            textViewContent = (AppCompatTextView) view.findViewById(R.id.textViewContent);
             textViewDate = (AppCompatTextView) view.findViewById(R.id.textViewDate);
             textViewOwner = (AppCompatTextView) view.findViewById(R.id.textViewOwner);
         }

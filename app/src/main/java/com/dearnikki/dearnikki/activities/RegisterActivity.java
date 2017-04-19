@@ -19,8 +19,6 @@ import com.dearnikki.dearnikki.sql.DatabaseHelper;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private final AppCompatActivity activity = RegisterActivity.this;
-
     private NestedScrollView nestedScrollView;
 
     private TextInputLayout textInputLayoutName;
@@ -74,8 +72,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void initObjects() {
-        inputValidation = new InputValidation(activity);
-        databaseHelper = new DatabaseHelper(activity);
+        inputValidation = new InputValidation(this);
+        databaseHelper = new DatabaseHelper(this);
         user = new User();
     }
 

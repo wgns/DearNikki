@@ -207,8 +207,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_USER_EMAIL, entry.getEmail());
 
         // updating row
-        db.update(TABLE_ENTRIES, values, COLUMN_ENTRY_ID + " = " +
-                new String[]{String.valueOf(entry.getId())}, null);
+        db.update(TABLE_ENTRIES, values, COLUMN_ENTRY_ID + " = ?",
+                new String[]{String.valueOf(entry.getId())});
         db.close();
     }
 

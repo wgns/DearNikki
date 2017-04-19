@@ -22,7 +22,6 @@ import java.util.List;
 
 public class EntriesListActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private AppCompatActivity activity = EntriesListActivity.this;
     private AppCompatTextView textViewName;
     private RecyclerView recyclerViewEntries;
     private List<Entry> listEntries;
@@ -60,7 +59,7 @@ public class EntriesListActivity extends AppCompatActivity implements View.OnCli
         recyclerViewEntries.setItemAnimator(new DefaultItemAnimator());
         recyclerViewEntries.setHasFixedSize(true);
         recyclerViewEntries.setAdapter(entriesRecyclerAdapter);
-        databaseHelper = new DatabaseHelper(activity);
+        databaseHelper = new DatabaseHelper(this);
 
         String emailFromIntent = getIntent().getStringExtra("EMAIL");
         textViewName.setText(emailFromIntent);
@@ -90,9 +89,8 @@ public class EntriesListActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.appCompatButtonCompose) {
-            Intent intentRegister = new Intent(getApplicationContext(), ComposeActivity.class);
+            Intent intentRegister = new Intent(this, ComposeActivity.class);
             intentRegister.putExtra("EMAIL", getIntent().getStringExtra("EMAIL"));
-            finish();
             startActivity(intentRegister);
         }
     }

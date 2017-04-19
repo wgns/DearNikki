@@ -16,7 +16,6 @@ import com.dearnikki.dearnikki.helpers.InputValidation;
 import com.dearnikki.dearnikki.sql.DatabaseHelper;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-    private final AppCompatActivity activity = LoginActivity.this;
 
     private NestedScrollView nestedScrollView;
 
@@ -64,8 +63,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initObjects() {
-        databaseHelper = new DatabaseHelper(activity);
-        inputValidation = new InputValidation(activity);
+        databaseHelper = new DatabaseHelper(this);
+        inputValidation = new InputValidation(this);
     }
 
     @Override
@@ -77,7 +76,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.textViewLinkRegister:
                 // Navigate to RegisterActivity
                 Intent intentRegister = new Intent(getApplicationContext(), RegisterActivity.class);
-                finish();
                 startActivity(intentRegister);
                 break;
         }
@@ -92,7 +90,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         } if (databaseHelper.checkUser(textInputEditTextEmail.getText().toString().trim()
                 , textInputEditTextPassword.getText().toString().trim())) {
-            Intent accountsIntent = new Intent(activity, EntriesListActivity.class);
+            Intent accountsIntent = new Intent(this, EntriesListActivity.class);
             accountsIntent.putExtra("EMAIL", textInputEditTextEmail.getText().toString().trim());
             emptyInputEditText();
             startActivity(accountsIntent);
