@@ -204,7 +204,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_TITLE, entry.getTitle());
         values.put(COLUMN_CONTENT, entry.getContent());
         values.put(COLUMN_DATE, entry.getDate());
-        values.put(COLUMN_USER_EMAIL, entry.getEmail());
 
         // updating row
         db.update(TABLE_ENTRIES, values, COLUMN_ENTRY_ID + " = ?",

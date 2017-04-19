@@ -76,6 +76,7 @@ public class EntriesRecyclerAdapter extends RecyclerView.Adapter<EntriesRecycler
                                     intent.putExtra("USER_EMAIL", listEntries.get(position).getEmail());
                                     intent.putExtra("EMAIL", ((Activity) context).getIntent().getStringExtra("EMAIL"));
 
+                                    databaseHelper.deleteEntry(listEntries.get(position));
                                     context.startActivity(intent);
                                 } else {
                                     AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
@@ -86,10 +87,20 @@ public class EntriesRecyclerAdapter extends RecyclerView.Adapter<EntriesRecycler
                                 }
                                 break;
                             case 1:     // Delete - works fine
-                                databaseHelper.deleteEntry(listEntries.get(position));
-                                Intent intent1 = new Intent(context, EntriesListActivity.class);
-                                intent1.putExtra("EMAIL", ((Activity) context).getIntent().getStringExtra("EMAIL"));
-                                context.startActivity(intent1);
+                                AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+                                builder1.setMessage("Are you sure you want to delete this entry?")
+                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                databaseHelper.deleteEntry(listEntries.get(position));
+                                                Intent intent1 = new Intent(context, EntriesListActivity.class);
+                                                intent1.putExtra("EMAIL", ((Activity) context).getIntent().getStringExtra("EMAIL"));
+                                                context.startActivity(intent1);
+                                            }
+                                        })
+                                        .setNegativeButton("No", null)
+                                        .create()
+                                        .show();
                         }
                     }
                 });

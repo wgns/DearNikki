@@ -94,26 +94,14 @@ public class ComposeActivity extends AppCompatActivity implements View.OnClickLi
 
         entry.setTitle(textInputEditTextTitle.getText().toString().trim());
         entry.setContent(textInputEditTextContent.getText().toString().trim());
-        entry.setDate(getDate());
+        entry.setDate();
         entry.setEmail(getIntent().getStringExtra("EMAIL"));
 
-        if (getIntent().getStringExtra("TITLE") == null) {
-            databaseHelper.addEntry(entry);
-        } else {
-            entry.setEmail(getIntent().getStringExtra("USER_EMAIL"));
-            entry.setId(Integer.parseInt(getIntent().getStringExtra("ENTRY_ID")));
-            databaseHelper.updateEntry(entry);
-        }
+        databaseHelper.addEntry(entry);
 
         // Snack Bar to show success message that record saved successfully
         Snackbar.make(nestedScrollView, "Diary Entry added", Snackbar.LENGTH_LONG).show();
         emptyInputEditText();
-    }
-
-    private String getDate() {
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMMMMMMM yyyy, HH:mm:ss a");
-        return sdf.format(cal.getTime());
     }
 
     private void emptyInputEditText() {

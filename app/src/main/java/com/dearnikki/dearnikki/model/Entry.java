@@ -1,5 +1,8 @@
 package com.dearnikki.dearnikki.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class Entry {
 
     private int id;
@@ -38,6 +41,12 @@ public class Entry {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public void setDate() {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMMMMMMM yyyy, HH:mm:ss a");
+        date = sdf.format(cal.getTime());
     }
 
     public String getEmail() {
