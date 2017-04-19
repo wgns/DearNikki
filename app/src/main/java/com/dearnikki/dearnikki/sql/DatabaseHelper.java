@@ -96,6 +96,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public String getUserName(String email) {
+        // array of columns to fetch
+        String[] columns = {
+                COLUMN_USER_ID,
+                COLUMN_USER_EMAIL,
+                COLUMN_USER_NAME,
+                COLUMN_USER_PASSWORD
+        };
+
+        String name = new String();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_USERS, //Table to query
+                columns,     //columns to return
+                null,        //columns for the WHERE clause
+                null,        //The values for the WHERE clause
+                null,        //group the rows
+                null,        //filter by row groups
+                null);       //The sort order
+
+        if (cursor.moveToFirst()) {
+            do {
+                if (email.equals(cursor.getString(cursor.getColumnIndex(COLUMN_USER_EMAIL)))) {
+                    name = cursor.getString(cursor.getColumnIndex(COLUMN_USER_NAME));
+                    break;
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        return name;
+    }
+
     public List<User> getAllUser() {
         // array of columns to fetch
         String[] columns = {

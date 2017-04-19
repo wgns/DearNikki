@@ -67,7 +67,7 @@ public class EntriesRecyclerAdapter extends RecyclerView.Adapter<EntriesRecycler
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         switch (i) {
-                            case 0:     // Edit - minetey lungs
+                            case 0:     // Edit - HAHAHALOLS delete + add = update      :(
                                 if (listEntries.get(position).getEmail().equals(((Activity) context).getIntent().getStringExtra("EMAIL"))) {
                                     Intent intent = new Intent(context, ComposeActivity.class);
                                     intent.putExtra("ENTRY_ID", listEntries.get(position).getId());
@@ -92,8 +92,11 @@ public class EntriesRecyclerAdapter extends RecyclerView.Adapter<EntriesRecycler
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 databaseHelper.deleteEntry(listEntries.get(position));
+
                                                 Intent intent1 = new Intent(context, EntriesListActivity.class);
                                                 intent1.putExtra("EMAIL", ((Activity) context).getIntent().getStringExtra("EMAIL"));
+
+                                                ((Activity) context).finish();
                                                 context.startActivity(intent1);
                                             }
                                         })

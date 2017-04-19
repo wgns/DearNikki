@@ -61,7 +61,7 @@ public class EntriesListActivity extends AppCompatActivity implements View.OnCli
         recyclerViewEntries.setAdapter(entriesRecyclerAdapter);
         databaseHelper = new DatabaseHelper(this);
 
-        String emailFromIntent = getIntent().getStringExtra("EMAIL");
+        String emailFromIntent = databaseHelper.getUserName(getIntent().getStringExtra("EMAIL"));
         textViewName.setText(emailFromIntent);
 
         getDataFromSQLite();
