@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.dearnikki.dearnikki.R;
 import com.dearnikki.dearnikki.helpers.InputValidation;

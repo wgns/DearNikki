@@ -52,7 +52,7 @@
             android:id="@+id/appCompatButtonSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="80dp"
             android:background="@color/colorTextHint"
             android:text="Save Diary Entry" />
     </android.support.v7.widget.LinearLayoutCompat>

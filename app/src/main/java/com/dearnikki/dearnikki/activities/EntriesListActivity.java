@@ -1,16 +1,17 @@
 package com.dearnikki.dearnikki.activities;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.dearnikki.dearnikki.R;
 import com.dearnikki.dearnikki.adapters.EntriesRecyclerAdapter;
@@ -27,7 +28,7 @@ public class EntriesListActivity extends AppCompatActivity implements View.OnCli
     private List<Entry> listEntries;
     private EntriesRecyclerAdapter entriesRecyclerAdapter;
     private DatabaseHelper databaseHelper;
-    private AppCompatButton appCompatButtonCompose;
+    private ImageView imgCompose;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,11 +44,11 @@ public class EntriesListActivity extends AppCompatActivity implements View.OnCli
     private void initViews() {
         textViewName = (AppCompatTextView) findViewById(R.id.textViewName);
         recyclerViewEntries = (RecyclerView) findViewById(R.id.recyclerViewEntries);
-        appCompatButtonCompose = (AppCompatButton) findViewById(R.id.appCompatButtonCompose);
+        imgCompose = (ImageView) findViewById(R.id.imgCompose);
     }
 
     private void initListeners() {
-        appCompatButtonCompose.setOnClickListener(this);
+        imgCompose.setOnClickListener(this);
     }
 
     private void initObjects() {
@@ -88,7 +89,7 @@ public class EntriesListActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.appCompatButtonCompose) {
+        if (view.getId() == R.id.imgCompose) {
             Intent intentRegister = new Intent(this, ComposeActivity.class);
             intentRegister.putExtra("EMAIL", getIntent().getStringExtra("EMAIL"));
             startActivity(intentRegister);

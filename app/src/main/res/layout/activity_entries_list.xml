@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,7 +10,8 @@
         android:layout_height="150dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
@@ -44,12 +46,14 @@
         android:layout_width="match_parent"
         android:layout_height="280dp" />
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/appCompatButtonCompose"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:background="@color/colorTextHint"
-        android:text="Compose diary entry"
-        android:layout_marginLeft="90dp" />
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/compose"
+        android:id="@+id/imgCompose"
+        android:layout_marginLeft="290dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        android:tint="@color/colorPrimary" />
 </LinearLayout>
